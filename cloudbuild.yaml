@@ -1,0 +1,19 @@
+steps:
+  - name: 'gcr.io/cloud-builders/docker'
+    args: 
+      - 'build'
+      - '-t'
+      - 'europe-west1-docker.pkg.dev/modern-alpha-479108-b6/mautic-repo/mautic:latest'
+      - '--build-arg'
+      - 'BUILDKIT_INLINE_CACHE=1'
+      - '.'
+    env:
+      - 'DOCKER_BUILDKIT=1'
+    timeout: '3600s'
+images:
+  - 'europe-west1-docker.pkg.dev/modern-alpha-479108-b6/mautic-repo/mautic:latest'
+options:
+  machineType: 'E2_HIGHCPU_32'
+  diskSizeGb: 100
+  logging: CLOUD_LOGGING_ONLY
+timeout: '3600s'

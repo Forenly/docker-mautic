@@ -22,6 +22,10 @@ fi
 if [ "${FLAVOUR}" = "fpm" ]; then \
   php-fpm
 elif [ "${FLAVOUR}" = "apache" ]; then \
+  if [ -n "$PORT" ]; then
+    sed -i "s/Listen 80/Listen ${PORT}/" /etc/apache2/ports.conf
+    sed -i "s/:80/:${PORT}/" /etc/apache2/sites-available/*.conf
+  fi
   apache2-foreground
 else
   log "[${DOCKER_MAUTIC_ROLE}]: FLAVOUR variable is not set correctly, exiting."
